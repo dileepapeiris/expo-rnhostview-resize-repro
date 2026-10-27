@@ -59,3 +59,5 @@ def main(folder):
         print(f"{ms}     {top_grey:5d}        {top_blue:5d}      | {bottom_grey:5d}    {bottom_blue:5d}")
 
 
+if __name__ == "__main__":
+    main(sys.argv[1] if len(sys.argv) > 1 else "shots")
