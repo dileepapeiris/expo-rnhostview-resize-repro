@@ -84,7 +84,7 @@ export default function App() {
 
   const toggle = (label: string) => {
     toggledAt.current = Date.now();
-    console.log(`[52396] ${label} -> ${wide ? 'narrow' : 'wide'} (t=${Date.now() - t0})`);
+    console.log(`[52396] ${label} (t=${Date.now() - t0})`);
     setWide((w) => !w);
   };
 
