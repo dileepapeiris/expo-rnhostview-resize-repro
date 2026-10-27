@@ -31,3 +31,25 @@ const PHOTO = require('./assets/icon.png');
 const TITLE = 'Card title';
 const BODY =
   'Card body text. It is long enough to wrap across several lines, so a change in width reflows it.';
+
+function SwiftUICard() {
+  return (
+    <VStack alignment="leading" spacing={8} modifiers={[padding({ all: 12 })]}>
+      <SwiftText modifiers={[font({ textStyle: 'caption', weight: 'semibold' }), foregroundStyle('secondary')]}>
+        SWIFTUI (CONTROL)
+      </SwiftText>
+      <Rectangle
+        modifiers={[
+          frame({ maxWidth: Infinity, minHeight: 80, maxHeight: 80 }),
+          foregroundStyle('#8e8e93'),
+          clipShape('roundedRectangle', 12),
+        ]}
+      />
+      <SwiftText modifiers={[font({ textStyle: 'headline' }), lineLimit(2)]}>{TITLE}</SwiftText>
+      <SwiftText modifiers={[font({ textStyle: 'subheadline' }), foregroundStyle('secondary')]}>{BODY}</SwiftText>
+      <SwiftButton onPress={() => {}} modifiers={[buttonStyle('borderedProminent')]}>
+        <SwiftText modifiers={[frame({ maxWidth: Infinity })]}>Button</SwiftText>
+      </SwiftButton>
+    </VStack>
+  );
+}
