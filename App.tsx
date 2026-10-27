@@ -94,3 +94,12 @@ export default function App() {
     return () => timers.forEach(clearTimeout);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Logs every layout the hosted RN view receives. On `main` there is exactly one per toggle,
+  // a few ms after it, already at the destination width.
+  const onLayout = (e: LayoutChangeEvent) => {
+    const { width: w, height: h } = e.nativeEvent.layout;
+    console.log(
+      `[52396] onLayout width=${w.toFixed(1)} height=${h.toFixed(1)} +${Date.now() - toggledAt.current}ms after toggle (t=${Date.now() - t0})`
+    );
+  };
