@@ -67,3 +67,9 @@ width, and nothing during the 800 ms animation.
 [52396] onLayout width=200.0 height=260.0 +22ms after toggle (t=6111)
 ```
 
+## Cause
+
+`ReportSizeToYogaNodeModifier` in `packages/expo-ui/ios/RNHostView.swift` reports the hosted
+view's size to Yoga from `onGeometryChange`. During an animated layout change that runs once,
+with the destination size, so Yoga lays the hosted tree out at the final size before the
+animation runs and nothing reports the sizes in between.
