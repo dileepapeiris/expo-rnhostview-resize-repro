@@ -126,3 +126,22 @@ export default function App() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  root: { flex: 1, backgroundColor: '#fff', paddingTop: 60 },
+  controls: { padding: 16, gap: 8 },
+  host: { flex: 1, marginHorizontal: 16 },
+  card: { flex: 1, padding: 12, gap: 8, backgroundColor: '#f2f2f7' },
+  label: { fontSize: 12, fontWeight: '600', color: '#8e8e93' },
+  photo: { width: '100%', height: 80, borderRadius: 12 },
+  title: { fontSize: 17, fontWeight: '600', color: '#000' },
+  body: { fontSize: 15, color: '#3c3c43' },
+  button: {
+    alignSelf: 'stretch',
+    alignItems: 'center',
+    paddingVertical: 12,
+    borderRadius: 999,
+    backgroundColor: '#007aff',
+  },
+  buttonText: { color: '#fff', fontSize: 16, fontWeight: '600' },
+});
