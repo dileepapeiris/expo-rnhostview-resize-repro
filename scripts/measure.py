@@ -36,3 +36,11 @@ def read_rows(bmp_path, ys):
     return rows
 
 
+def longest_run(row, pred):
+    best = cur = 0
+    for p in row:
+        cur = cur + 1 if pred(p) else 0
+        best = max(best, cur)
+    return best
+
+
