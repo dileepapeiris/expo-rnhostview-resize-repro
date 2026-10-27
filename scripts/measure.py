@@ -12,3 +12,10 @@ import struct
 import subprocess
 import sys
 
+GREY = lambda p: abs(p[0] - 0xF2) <= 4 and abs(p[1] - 0xF2) <= 4 and abs(p[2] - 0xF7) <= 4
+BLUE = lambda p: p[0] < 0x30 and 0x60 <= p[1] <= 0x90 and p[2] >= 0xE0
+# Rows of the two cards on an iPhone 17 (1206 x 2622) with the layout in App.tsx.
+TOP_ROWS = range(380, 1150, 20)
+BOTTOM_ROWS = range(1200, 1990, 20)
+
+
