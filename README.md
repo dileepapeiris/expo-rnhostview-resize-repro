@@ -15,3 +15,13 @@ npm install
 npx expo run:ios      # development build, iOS simulator
 ```
 
+## What the app does
+
+Two copies of the same card, one built in SwiftUI (the control) and one built in React Native
+inside `RNHostView`, sit in SwiftUI frames whose width animates between 200 and 360 points over
+0.8 s (`frame({ width })` + `animation(Animation.easeInOut({ duration: 0.8 }), wide)`).
+
+The **Make wide / Make narrow** button toggles the width. The app also toggles on its own at
+3, 6, 9 and 12 s after launch so a screenshot loop can run without tapping, and it logs every
+`onLayout` the hosted React Native view receives, with the time since the toggle.
+
