@@ -19,3 +19,20 @@ TOP_ROWS = range(380, 1150, 20)
 BOTTOM_ROWS = range(1200, 1990, 20)
 
 
+def read_rows(bmp_path, ys):
+    data = open(bmp_path, "rb").read()
+    offset = struct.unpack_from("<I", data, 10)[0]
+    width = struct.unpack_from("<i", data, 18)[0]
+    height = struct.unpack_from("<i", data, 22)[0]
+    bpp = struct.unpack_from("<H", data, 28)[0] // 8
+    bottom_up = height > 0
+    height = abs(height)
+    stride = ((width * bpp + 3) // 4) * 4
+    rows = {}
+    for y in ys:
+        ry = (height - 1 - y) if bottom_up else y
+        base = offset + ry * stride
+        rows[y] = [(data[base + x * bpp + 2], data[base + x * bpp + 1], data[base + x * bpp]) for x in range(width)]
+    return rows
+
+
