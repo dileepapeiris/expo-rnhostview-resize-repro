@@ -44,3 +44,18 @@ def longest_run(row, pred):
     return best
 
 
+def main(folder):
+    print("frame_ms  swiftui_card  swiftui_button | rn_card  rn_button   (px at 3x)")
+    for png in sorted(glob.glob(os.path.join(folder, "f_*.png"))):
+        bmp = png[:-4] + ".bmp"
+        subprocess.run(["sips", "-s", "format", "bmp", png, "--out", bmp], capture_output=True, check=True)
+        rows = read_rows(bmp, list(TOP_ROWS) + list(BOTTOM_ROWS))
+        os.remove(bmp)
+        top_grey = max(longest_run(rows[y], GREY) for y in TOP_ROWS)
+        top_blue = max(longest_run(rows[y], BLUE) for y in TOP_ROWS)
+        bottom_grey = max(longest_run(rows[y], GREY) for y in BOTTOM_ROWS)
+        bottom_blue = max(longest_run(rows[y], BLUE) for y in BOTTOM_ROWS)
+        ms = os.path.basename(png)[2:7]
+        print(f"{ms}     {top_grey:5d}        {top_blue:5d}      | {bottom_grey:5d}    {bottom_blue:5d}")
+
+
