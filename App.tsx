@@ -53,3 +53,19 @@ function SwiftUICard() {
     </VStack>
   );
 }
+
+function ReactNativeCard({ onLayout }: { onLayout: (e: LayoutChangeEvent) => void }) {
+  return (
+    <View style={styles.card} onLayout={onLayout}>
+      <Text style={styles.label}>REACT NATIVE IN RNHostView</Text>
+      <Image source={PHOTO} style={styles.photo} resizeMode="cover" />
+      <Text style={styles.title} numberOfLines={2}>
+        {TITLE}
+      </Text>
+      <Text style={styles.body}>{BODY}</Text>
+      <Pressable style={styles.button} onPress={() => {}}>
+        <Text style={styles.buttonText}>Button</Text>
+      </Pressable>
+    </View>
+  );
+}
