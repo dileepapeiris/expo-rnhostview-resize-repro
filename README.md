@@ -29,3 +29,11 @@ The **Make wide / Make narrow** button toggles the width. The app also toggles o
 
 Both cards resize smoothly: the photo, the wrapping text and the button grow with the frame.
 
+## Actual
+
+The SwiftUI card interpolates. The React Native card lays out at its **final** size in the first
+frame, while its frame is still at the starting width, so the content overflows the frame and
+the frame then catches up.
+
+![mid-animation](media/mid-animation-3920ms.png)
+
