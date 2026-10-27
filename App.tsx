@@ -87,3 +87,10 @@ export default function App() {
     console.log(`[52396] ${label} -> ${wide ? 'narrow' : 'wide'} (t=${Date.now() - t0})`);
     setWide((w) => !w);
   };
+
+  // Toggles on its own at 3, 6, 9 and 12 s so a screenshot loop can run without tapping.
+  useEffect(() => {
+    const timers = [1, 2, 3, 4].map((i) => setTimeout(() => toggle(`AUTO-TOGGLE ${i}`), 3000 * i));
+    return () => timers.forEach(clearTimeout);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
