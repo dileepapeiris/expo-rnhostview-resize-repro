@@ -25,3 +25,7 @@ The **Make wide / Make narrow** button toggles the width. The app also toggles o
 3, 6, 9 and 12 s after launch so a screenshot loop can run without tapping, and it logs every
 `onLayout` the hosted React Native view receives, with the time since the toggle.
 
+## Expected
+
+Both cards resize smoothly: the photo, the wrapping text and the button grow with the frame.
+
