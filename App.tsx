@@ -71,3 +71,13 @@ function ReactNativeCard({ onLayout }: { onLayout: (e: LayoutChangeEvent) => voi
 }
 
 const t0 = Date.now();
+
+export default function App() {
+  const [wide, setWide] = useState(false);
+  const toggledAt = useRef(0);
+  const width = wide ? 360 : 200;
+  const resize = [
+    frame({ width, height: 260 }),
+    background('#f2f2f7'),
+    animation(Animation.easeInOut({ duration: 0.8 }), wide),
+  ];
