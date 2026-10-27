@@ -8,3 +8,10 @@ single-screen app without Expo Router.
 Versions: Expo SDK 58, `@expo/ui` 58.0.23, React Native 0.88, iOS 26.5 simulator (iPhone 17),
 Xcode 26.6.
 
+## Run
+
+```sh
+npm install
+npx expo run:ios      # development build, iOS simulator
+```
+
