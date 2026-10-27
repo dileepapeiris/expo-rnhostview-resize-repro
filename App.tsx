@@ -81,3 +81,9 @@ export default function App() {
     background('#f2f2f7'),
     animation(Animation.easeInOut({ duration: 0.8 }), wide),
   ];
+
+  const toggle = (label: string) => {
+    toggledAt.current = Date.now();
+    console.log(`[52396] ${label} -> ${wide ? 'narrow' : 'wide'} (t=${Date.now() - t0})`);
+    setWide((w) => !w);
+  };
