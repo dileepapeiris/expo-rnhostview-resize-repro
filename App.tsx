@@ -103,3 +103,26 @@ export default function App() {
       `[52396] onLayout width=${w.toFixed(1)} height=${h.toFixed(1)} +${Date.now() - toggledAt.current}ms after toggle (t=${Date.now() - t0})`
     );
   };
+
+  return (
+    <View style={styles.root}>
+      <View style={styles.controls}>
+        <Button title={wide ? 'Make narrow' : 'Make wide'} onPress={() => toggle('TAP')} />
+      </View>
+      <Host style={styles.host}>
+        <ScrollView>
+          <VStack alignment="leading" spacing={16}>
+            <VStack modifiers={resize}>
+              <SwiftUICard />
+            </VStack>
+            <VStack modifiers={resize}>
+              <RNHostView>
+                <ReactNativeCard onLayout={onLayout} />
+              </RNHostView>
+            </VStack>
+          </VStack>
+        </ScrollView>
+      </Host>
+    </View>
+  );
+}
