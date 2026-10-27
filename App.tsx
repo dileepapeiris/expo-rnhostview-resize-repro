@@ -69,3 +69,5 @@ function ReactNativeCard({ onLayout }: { onLayout: (e: LayoutChangeEvent) => voi
     </View>
   );
 }
+
+const t0 = Date.now();
