@@ -73,3 +73,27 @@ width, and nothing during the 800 ms animation.
 view's size to Yoga from `onGeometryChange`. During an animated layout change that runs once,
 with the destination size, so Yoga lays the hosted tree out at the final size before the
 animation runs and nothing reports the sizes in between.
+
+## With the fix
+
+Same capture against `@expo/ui` built from source with
+[the fix](https://github.com/expo/expo/compare/main...dileepapeiris:expo:fix/ui-rnhostview-animated-resize)
+to `RNHostView.swift`, which reports every interpolated size through an `Animatable` modifier.
+
+| ms after launch | SwiftUI button | RN button |
+| --- | --- | --- |
+| 3668 | 512 | 563 |
+| 3794 | 522 | 513 |
+| 3922 | 585 | 572 |
+| 4053 | 701 | 694 |
+| 4182 | 820 | 813 |
+| 4366 | 965 | 968 |
+| 4860 | 992 | 996 |
+
+The React Native button now follows the SwiftUI one frame by frame. Metro logs 46 to 47
+`onLayout` events per toggle, one per frame of the 0.8 s animation, from 200.7 up to 360.0.
+Full output: `media/measure-with-fix.txt`, `media/metro-with-fix.txt`.
+
+Before on the left, with the fix on the right, 0.27 s into the same animation:
+
+![before and after](media/mid-animation-before-after.png)
