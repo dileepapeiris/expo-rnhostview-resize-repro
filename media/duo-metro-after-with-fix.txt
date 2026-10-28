@@ -1,0 +1,4 @@
+[52396] onLayout #1 width=371.7 height=505.3 +46355ms after toggle (t=58530)
+[52396] onLayout #2 width=495.0 height=505.3 +50016ms after toggle (t=62191)
+[52396] onLayout #3 width=371.7 height=505.3 +54151ms after toggle (t=66326)
+[52396] onLayout #4 width=495.0 height=505.3 +58123ms after toggle (t=70298)
