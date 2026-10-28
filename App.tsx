@@ -85,11 +85,15 @@ export default function App() {
     animation(Animation.easeInOut({ duration: 0.8 }), animKey),
   ];
 
+  // The timers below capture the first render's `toggle`, so the current width lives in a ref.
+  const wideRef = useRef(false);
   const toggle = (label: string, animated: boolean) => {
+    const next = !wideRef.current;
+    wideRef.current = next;
     toggledAt.current = Date.now();
     layoutsSinceToggle.current = 0;
-    console.log(`[52396] ${label} ${animated ? 'ANIMATED' : 'INSTANT'} -> ${wide ? 200 : 360} (t=${Date.now() - t0})`);
-    setWide((w) => !w);
+    console.log(`[52396] ${label} ${animated ? 'ANIMATED' : 'INSTANT'} -> ${next ? 360 : 200} (t=${Date.now() - t0})`);
+    setWide(next);
     if (animated) setAnimKey((k) => k + 1);
   };
 
