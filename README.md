@@ -120,3 +120,47 @@ The app now alternates an animated toggle (3 s, 9 s) with an instant one (6 s, 1
 | Cold launch | Mid animation | After an instant toggle |
 | --- | --- | --- |
 | ![cold launch](media/cold-launch-with-fix.png) | ![mid animation](media/mid-animated-with-fix.png) | ![after instant](media/after-instant-with-fix.png) |
+
+## iPhone Duo, ArrangementView (added 10/28/26)
+
+Screen 2 of the issue, run on the iPhone Duo simulator (iOS 27.1, Xcode 27.1). On the inner
+display in landscape the app shows the two cards as the sides of an `ArrangementView`
+(`arrangementViewStyle('split')`, like the issue's repro). The Duo cannot be folded from
+`simctl`; `scripts/devicehub.sh` presses Device Hub's **Partially Open** and **Open** buttons,
+and `scripts/capture-duo.sh` records a fold into book pose and back while `onLayout` logs the
+hosted card's sizes.
+
+Result: **the fix changes nothing here.** With and without it, each fold produces exactly one
+`onLayout` on the hosted card, at the destination width (495 → 371.7 pt and back), and the
+frame-by-frame button widths of the two recordings match
+(`media/duo-frames-before.txt`, `media/duo-frames-after-with-fix.txt`,
+`scripts/measure-frames.py`).
+
+| Fold | Before: `onLayout` | After: `onLayout` |
+| --- | --- | --- |
+| flat → book pose | 1, at 371.7 pt | 1, at 371.7 pt |
+| book pose → flat | 1, at 495.0 pt | 1, at 495.0 pt |
+
+Why: Device Hub's pose buttons switch the hinge instantly. The simulator shows a blur
+transition on the folded half for about 150 ms and the `ArrangementView` relayouts in one
+step about a second later, in a transaction that is not animated. The `Animatable`
+reporter only sees interpolated sizes during an animated transaction, so there is nothing
+for it to report here. A real fold (or Device Hub's hinge-angle slider, which shows when
+holding Option over the pose buttons and was not automated) drives the arrangement through
+intermediate angles, which this capture does not cover.
+
+![Duo fold, before and after](media/duo-before-after.gif)
+
+Side by side as MP4: [media/duo-before-after.mp4](media/duo-before-after.mp4). Single captures:
+[duo-before.mp4](media/duo-before.mp4), [duo-after-with-fix.mp4](media/duo-after-with-fix.mp4).
+Both builds in book pose, 4 s into the recording:
+
+![Book pose, before and after](media/duo-book-pose-before-after.png)
+
+```sh
+open /Applications/Xcode.app/Contents/Applications/DeviceHub.app   # Device Hub on the Duo
+scripts/devicehub.sh Open                                           # flat, then rotate to landscape
+scripts/capture-duo.sh <duo udid> media/duo-before
+swift scripts/compose.swift frames media/duo-before.mp4 frames-before 20
+python3 scripts/measure-frames.py frames-before 1300 7000
+```
