@@ -93,9 +93,11 @@ export default function App() {
     if (animated) setAnimKey((k) => k + 1);
   };
 
-  // Toggles on its own at 3, 6, 9 and 12 s so a screenshot loop can run without tapping.
+  // Toggles on its own: animated at 3 s, instant at 6 s, animated at 9 s, instant at 12 s.
   useEffect(() => {
-    const timers = [1, 2, 3, 4].map((i) => setTimeout(() => toggle(`AUTO-TOGGLE ${i}`), 3000 * i));
+    const timers = [1, 2, 3, 4].map((i) =>
+      setTimeout(() => toggle(`AUTO-TOGGLE ${i}`, i % 2 === 1), 3000 * i)
+    );
     return () => timers.forEach(clearTimeout);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
