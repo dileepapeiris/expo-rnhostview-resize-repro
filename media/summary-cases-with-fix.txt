@@ -1,0 +1,6 @@
+phase                layouts  first width  last width          span
+cold launch                1        200.0       200.0              
+animated -> 360           46        200.7       360.0    119-872 ms
+instant -> 200             1        200.0       200.0      17-17 ms
+animated -> 360           46        200.7       360.0     72-822 ms
+instant -> 200             1        200.0       200.0      10-10 ms
