@@ -74,12 +74,15 @@ const t0 = Date.now();
 
 export default function App() {
   const [wide, setWide] = useState(false);
+  // Only an animated toggle changes this key, so an instant toggle changes the width without animation.
+  const [animKey, setAnimKey] = useState(0);
   const toggledAt = useRef(0);
+  const layoutsSinceToggle = useRef(0);
   const width = wide ? 360 : 200;
   const resize = [
     frame({ width, height: 260 }),
     background('#f2f2f7'),
-    animation(Animation.easeInOut({ duration: 0.8 }), wide),
+    animation(Animation.easeInOut({ duration: 0.8 }), animKey),
   ];
 
   const toggle = (label: string) => {
