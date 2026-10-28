@@ -116,7 +116,8 @@ export default function App() {
   return (
     <View style={styles.root}>
       <View style={styles.controls}>
-        <Button title={wide ? 'Make narrow' : 'Make wide'} onPress={() => toggle('TAP')} />
+        <Button title={`Animated: make ${wide ? 'narrow' : 'wide'}`} onPress={() => toggle('TAP', true)} />
+        <Button title={`Instant: make ${wide ? 'narrow' : 'wide'}`} onPress={() => toggle('TAP', false)} />
       </View>
       <Host style={styles.host}>
         <ScrollView>
