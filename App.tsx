@@ -20,9 +20,19 @@ import {
   frame,
   lineLimit,
   padding,
+  splitArrangementLayoutSize,
 } from '@expo/ui/swift-ui/modifiers';
 import { useEffect, useRef, useState } from 'react';
-import { Button, Image, LayoutChangeEvent, Pressable, StyleSheet, Text, View } from 'react-native';
+import {
+  Button,
+  Image,
+  LayoutChangeEvent,
+  Pressable,
+  StyleSheet,
+  Text,
+  useWindowDimensions,
+  View,
+} from 'react-native';
 
 // Repro for https://github.com/expo/expo/issues/52396
 // Two copies of the same card sit in SwiftUI frames whose width animates between 200 and 360
