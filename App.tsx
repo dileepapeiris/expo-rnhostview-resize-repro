@@ -136,9 +136,34 @@ export default function App() {
     );
   };
 
+  if (screen === 'arrangement') {
+    return (
+      <View style={styles.root}>
+        <View style={styles.controls}>
+          <Button title="Screen 1: animated width" onPress={() => setScreen('width')} />
+        </View>
+        <Host style={styles.root}>
+          <ArrangementView modifiers={[arrangementViewStyle('split', { axes: 'both' })]}>
+            <ArrangementView.Primary>
+              <VStack modifiers={[splitArrangementLayoutSize({ idealWidth: 372 }), frame({ maxHeight: Infinity })]}>
+                <SwiftUICard />
+              </VStack>
+            </ArrangementView.Primary>
+            <ArrangementView.Secondary>
+              <RNHostView>
+                <ReactNativeCard onLayout={onLayout} />
+              </RNHostView>
+            </ArrangementView.Secondary>
+          </ArrangementView>
+        </Host>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.root}>
       <View style={styles.controls}>
+        <Button title="Screen 2: iPhone Duo ArrangementView" onPress={() => setScreen('arrangement')} />
         <Button title={`Animated: make ${wide ? 'narrow' : 'wide'}`} onPress={() => toggle('TAP', true)} />
         <Button title={`Instant: make ${wide ? 'narrow' : 'wide'}`} onPress={() => toggle('TAP', false)} />
       </View>
