@@ -85,6 +85,13 @@ function ReactNativeCard({ onLayout }: { onLayout: (e: LayoutChangeEvent) => voi
 const t0 = Date.now();
 
 export default function App() {
+  // Screen 2 of the issue: on the iPhone Duo's inner display (landscape, 1,000+ pt wide)
+  // the two cards are the two sides of an ArrangementView, which animates at each fold.
+  // The wide inner display picks the ArrangementView screen, the outer display the width screen,
+  // until a button picks one by hand.
+  const { width: windowWidth } = useWindowDimensions();
+  const [chosenScreen, setScreen] = useState<'width' | 'arrangement' | null>(null);
+  const screen = chosenScreen ?? (windowWidth >= 600 ? 'arrangement' : 'width');
   const [wide, setWide] = useState(false);
   // Only an animated toggle changes this key, so an instant toggle changes the width without animation.
   const [animKey, setAnimKey] = useState(0);
