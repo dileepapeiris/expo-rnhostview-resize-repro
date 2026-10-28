@@ -85,10 +85,12 @@ export default function App() {
     animation(Animation.easeInOut({ duration: 0.8 }), animKey),
   ];
 
-  const toggle = (label: string) => {
+  const toggle = (label: string, animated: boolean) => {
     toggledAt.current = Date.now();
-    console.log(`[52396] ${label} (t=${Date.now() - t0})`);
+    layoutsSinceToggle.current = 0;
+    console.log(`[52396] ${label} ${animated ? 'ANIMATED' : 'INSTANT'} -> ${wide ? 200 : 360} (t=${Date.now() - t0})`);
     setWide((w) => !w);
+    if (animated) setAnimKey((k) => k + 1);
   };
 
   // Toggles on its own at 3, 6, 9 and 12 s so a screenshot loop can run without tapping.
