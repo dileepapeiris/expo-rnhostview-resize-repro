@@ -97,3 +97,26 @@ Full output: `media/measure-with-fix.txt`, `media/metro-with-fix.txt`.
 Before on the left, with the fix on the right, 0.27 s into the same animation:
 
 ![before and after](media/mid-animation-before-after.png)
+
+## Cold launch and instant resize (added 10/28/26)
+
+expo-bot's verification of the first version of the PR found two regressions: no size reached
+Yoga on first mount, and none for a width change without animation. SwiftUI only sets
+`animatableData` while an animation runs. The reporter now also reports from its body, with
+`onAppear` for the first layout and `onChange(of: size)` for a change that is not animated.
+
+The app now alternates an animated toggle (3 s, 9 s) with an instant one (6 s, 12 s), and
+`scripts/capture-cases.sh` screenshots each case while `scripts/summarize.py` reads the Metro log
+(`media/metro-cases-with-fix.txt`, summary in `media/summary-cases-with-fix.txt`):
+
+| Phase | `onLayout` events | first width | last width | when |
+| --- | --- | --- | --- | --- |
+| cold launch, frame 200 | 1 | 200.0 | 200.0 | |
+| animated 200 → 360 | 46 | 200.7 | 360.0 | 119 to 872 ms |
+| instant 360 → 200 | 1 | 200.0 | 200.0 | 17 ms |
+| animated 200 → 360 | 46 | 200.7 | 360.0 | 72 to 822 ms |
+| instant 360 → 200 | 1 | 200.0 | 200.0 | 10 ms |
+
+| Cold launch | Mid animation | After an instant toggle |
+| --- | --- | --- |
+| ![cold launch](media/cold-launch-with-fix.png) | ![mid animation](media/mid-animated-with-fix.png) | ![after instant](media/after-instant-with-fix.png) |
